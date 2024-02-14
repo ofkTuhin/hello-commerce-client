@@ -26,7 +26,7 @@ const useAuth = () => {
           password,
         },
       );
-
+      console.log(response);
       if (response.status === 200) {
         setUser({ result: response.data.result! });
         console.log(response.data.result);
@@ -38,7 +38,7 @@ const useAuth = () => {
           "refreshToken",
           response?.data.result.refreshToken! || "",
         );
-        router.push("/");
+        // router.push("/");
       }
     } catch (error) {
       console.log(error);

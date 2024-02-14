@@ -2,9 +2,10 @@
 "use client";
 
 import config from "@/config/config.json";
-import menu from "@/config/menu.json";
+import useAuth from "@/hook/useAuth";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { BsCartFill } from "react-icons/bs";
 
 //  child navigation link interface
@@ -22,27 +23,25 @@ export interface INavigationLink {
 }
 
 const Header = () => {
-  // distructuring the main menu from menu object
-  const { main }: { main: INavigationLink[] } = menu;
-  const { navigation_button, settings } = config;
+  const { settings } = config;
   // get current path
   const pathname = usePathname();
 
   // scroll to top on route change
-  // useEffect(() => {
-  //   window.scroll(0, 0);
-  // }, [pathname]);
-  // const { user, loading, logout } = useAuth();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [pathname]);
+  const { user, loading, logout } = useAuth();
 
-  // useEffect(() => {
-  //   // Example usage of the authentication hook
-  //   if (!user && !loading && pathname !== "/login") {
-  //     console.log(user);
-  //     logout();
-  //     redirect("/login");
-  //     // Redirect to login or display a login form
-  //   }
-  // }, [user, loading]);
+  useEffect(() => {
+    // Example usage of the authentication hook
+    if (!user && !loading && pathname !== "/login") {
+      console.log(user);
+      logout();
+      redirect("/login");
+      // Redirect to login or display a login form
+    }
+  }, [user, loading]);
   // console.log(user);
   return (
     <header

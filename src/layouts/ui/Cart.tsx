@@ -1,5 +1,6 @@
 import { useCartContext } from "@/context/TodoContext";
 import { Product } from "@/types";
+import axios from "axios";
 import Image from "next/image";
 import { useMemo } from "react";
 
@@ -8,6 +9,29 @@ const Cart = () => {
   const totalPay = useMemo(() => {
     return cart?.reduce((prev, cur) => prev + cur.price * cur.quantity, 0);
   }, [cart]);
+
+  const updateCart = async (id: string, quantity: number) => {
+    try {
+      const update = await axios.patch(
+        `http://localhost:5001/api/v1/cart/${id}`,
+        {
+          quantity,
+        },
+      );
+      console.log(update);
+      if (update.status === 200) {
+        dispatch!({
+          type: "UPDATE_QUANTITY",
+          payload: {
+            id: id,
+            quantity: quantity,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="col-4 relative">
       <div className="  px-4 ">
@@ -42,13 +66,7 @@ const Cart = () => {
                       <div className="flex items-center">
                         <button
                           onClick={() =>
-                            dispatch!({
-                              type: "UPDATE_QUANTITY",
-                              payload: {
-                                _id: item._id,
-                                quantity: item.quantity + 1,
-                              },
-                            })
+                            updateCart(item._id, item.quantity + 1)
                           }
                           className="w-5 flex items-center justify-center h-5 rounded-full  border border-primary"
                         >
@@ -57,13 +75,7 @@ const Cart = () => {
                         <span className="mx-3">{item.quantity}</span>
                         <button
                           onClick={() =>
-                            dispatch!({
-                              type: "UPDATE_QUANTITY",
-                              payload: {
-                                _id: item._id,
-                                quantity: item.quantity - 1,
-                              },
-                            })
+                            updateCart(item._id, item.quantity - 1)
                           }
                           disabled={item.quantity === 1}
                           className="w-5 h-5 flex items-center justify-center rounded-full  border border-primary"
