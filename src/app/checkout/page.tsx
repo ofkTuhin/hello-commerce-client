@@ -35,7 +35,7 @@ function CheckoutLayout() {
     data: products,
     loading,
     error,
-  } = useBackendApi("http://localhost:5001/api/v1/product");
+  } = useBackendApi("https://hello-commerce-server.vercel.app/v1/product");
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>

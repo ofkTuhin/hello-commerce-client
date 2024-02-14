@@ -20,7 +20,7 @@ const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post<User>(
-        "http://localhost:5001/api/v1/user/login",
+        "https://hello-commerce-server.vercel.app/v1/user/login",
         {
           email,
           password,

@@ -12,10 +12,13 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:5001/api/v1/user", {
-      email: formData.email,
-      password: formData.password,
-    });
+    const res = await axios.post(
+      "https://hello-commerce-server.vercel.app/v1/user",
+      {
+        email: formData.email,
+        password: formData.password,
+      },
+    );
     // Handle form submission with formData
     if (res.status === 200) {
       login(formData.email, formData.password);
