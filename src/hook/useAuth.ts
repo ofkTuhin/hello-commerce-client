@@ -25,8 +25,12 @@ const useAuth = () => {
           email,
           password,
         },
+        {
+          withCredentials: true,
+          headers: {},
+        },
       );
-      console.log(response);
+
       if (response.status === 200) {
         setUser({ result: response.data.result! });
         console.log(response.data.result);
