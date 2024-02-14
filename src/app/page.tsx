@@ -12,7 +12,7 @@ const Home = () => {
     data: products,
     loading,
     error,
-  } = useBackendApi("https://hello-commerce-server.vercel.app/v1/product");
+  } = useBackendApi("https://hello-commerce-server.vercel.app/api/v1/product");
 
   if (loading) {
     return <div>Loading...</div>;
@@ -23,7 +23,7 @@ const Home = () => {
   }
   const handleAddToCart = async (product: Product) => {
     const res = await axios.post(
-      "https://hello-commerce-server.vercel.app/v1/cart",
+      "https://hello-commerce-server.vercel.app/api/v1/cart",
       {
         user_id: "user",
         product: product._id,

@@ -12,7 +12,7 @@ const todoState = () => {
   useEffect(() => {
     const handleAddToCart = async () => {
       const res = await axios.get(
-        "https://hello-commerce-server.vercel.app/v1/cart",
+        "https://hello-commerce-server.vercel.app/api/v1/cart",
       );
       console.log(res);
       const data: Product[] = res.data.result.map((data: any) => {

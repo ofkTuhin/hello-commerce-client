@@ -13,7 +13,7 @@ const Cart = () => {
   const updateCart = async (id: string, quantity: number) => {
     try {
       const update = await axios.patch(
-        `https://hello-commerce-server.vercel.app/v1/cart/${id}`,
+        `https://hello-commerce-server.vercel.app/api/v1/cart/${id}`,
         {
           quantity,
         },

@@ -13,7 +13,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await axios.post(
-      "https://hello-commerce-server.vercel.app/v1/user",
+      "https://hello-commerce-server.vercel.app/api/v1/user",
       {
         email: formData.email,
         password: formData.password,
