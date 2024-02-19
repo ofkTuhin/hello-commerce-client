@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { axiosPrivate } from "@/lib/axios";
 import { Product } from "@/types";
-import axios from "axios";
 import { useEffect, useReducer } from "react";
 import { cartReducer } from "./cartReducer";
 
@@ -11,10 +11,7 @@ const todoState = () => {
 
   useEffect(() => {
     const handleAddToCart = async () => {
-      const res = await axios.get(
-        "https://hello-commerce-server.vercel.app/api/v1/cart",
-      );
-      console.log(res);
+      const res = await axiosPrivate.get("cart");
       const data: Product[] = res.data.result.map((data: any) => {
         return {
           ...data.product,
@@ -22,7 +19,6 @@ const todoState = () => {
         };
       });
 
-      console.log({ data, res });
       dispatch({
         type: "FETCH_CART",
         payload: data,

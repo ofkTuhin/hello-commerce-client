@@ -1,52 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import config from "@/config/config.json";
 import useAuth from "@/hook/useAuth";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { BsCartFill } from "react-icons/bs";
-
-//  child navigation link interface
-export interface IChildNavigationLink {
-  name: string;
-  url: string;
-}
-
-// navigation link interface
-export interface INavigationLink {
-  name: string;
-  url: string;
-  hasChildren?: boolean;
-  children?: IChildNavigationLink[];
-}
 
 const Header = () => {
-  const { settings } = config;
   // get current path
   const pathname = usePathname();
+  const { user, logout } = useAuth();
 
   // scroll to top on route change
   useEffect(() => {
     window.scroll(0, 0);
   }, [pathname]);
-  const { user, loading, logout } = useAuth();
 
-  useEffect(() => {
-    // Example usage of the authentication hook
-    if (!user && !loading && pathname !== "/login") {
-      console.log(user);
-      logout();
-      redirect("/login");
-      // Redirect to login or display a login form
-    }
-  }, [user, loading]);
   // console.log(user);
   return (
-    <header
-      className={`header z-30 ${settings.sticky_header && "sticky top-0"}`}
-    >
+    <header className={`header z-30 sticky top-0`}>
       <nav className="navbar container">
         {/* logo */}
         <div className="order-0">
@@ -83,32 +55,18 @@ const Header = () => {
         {/* /navbar toggler */}
 
         <div className="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
-          {settings.search && (
-            <Link
-              className="border-border text-dark hover:text-primary  mr-5 inline-block border-r pr-5 text-xl  "
-              aria-label="search"
-              data-search-trigger
-              href="/checkout"
-            >
-              <BsCartFill />
-            </Link>
-          )}
-          <Link
-            className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-            href="/login"
-          >
-            Login
-          </Link>
-          {/* {user ? (
+          {user ? (
+            <button className="btn btn-sm" onClick={() => logout()}>
+              Log out
+            </button>
+          ) : (
             <Link
               className="btn btn-outline-primary btn-sm hidden lg:inline-block"
               href="/login"
             >
               Login
             </Link>
-          ) : (
-            <button onClick={() => logout()}>Sign out</button>
-          )} */}
+          )}
         </div>
       </nav>
     </header>

@@ -1,10 +1,10 @@
 "use client";
-import config from "@/config/config.json";
 import theme from "@/config/theme.json";
-import { CartProvider } from "@/context/TodoContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/cartContext";
 import Header from "@/layouts/ui/Header";
 import "@/styles/main.scss";
-
+// import { CookiesProvider } from 'react-cookie';
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +12,6 @@ export default function RootLayout({
 }) {
   // import google font css
   const pf = theme.fonts.font_family.primary;
-  const sf = theme.fonts.font_family.secondary;
 
   return (
     <html suppressHydrationWarning={true} lang="en">
@@ -24,7 +23,7 @@ export default function RootLayout({
         />
 
         {/* favicon */}
-        <link rel="shortcut icon" href={config.site.favicon} />
+
         {/* theme meta */}
         <meta name="theme-name" content="nextplate" />
         <meta name="msapplication-TileColor" content="#000000" />
@@ -46,19 +45,19 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href={`https://fonts.googleapis.com/css2?family=${pf}${
-            sf ? "&family=" + sf : ""
-          }&display=swap`}
+          href={`https://fonts.googleapis.com/css2?family=${pf}&display=swap`}
           rel="stylesheet"
         />
       </head>
 
       <body suppressHydrationWarning={true}>
-        <CartProvider>
-          <Header />
+        <AuthProvider>
+          <CartProvider>
+            <Header />
 
-          <main>{children}</main>
-        </CartProvider>
+            <main>{children}</main>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

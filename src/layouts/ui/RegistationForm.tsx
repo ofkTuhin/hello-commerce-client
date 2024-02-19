@@ -1,7 +1,7 @@
 "use client";
 import useAuth from "@/hook/useAuth";
 import useRegistrationForm from "@/hook/useRegistrationForm";
-import axios from "axios";
+import { Axios } from "@/lib/axios";
 import React from "react";
 import FormInput from "../components/FormInput";
 import SubmitButton from "../components/SubmitButton";
@@ -12,13 +12,11 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await axios.post(
-      "https://hello-commerce-server.vercel.app/api/v1/user",
-      {
-        email: formData.email,
-        password: formData.password,
-      },
-    );
+    const res = await Axios.post("user", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
     // Handle form submission with formData
     if (res.status === 200) {
       login(formData.email, formData.password);

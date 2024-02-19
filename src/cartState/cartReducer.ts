@@ -3,7 +3,6 @@ import { Product } from "@/types";
 import { Action } from "./actions";
 
 export const cartReducer = (state: Product[], action: Action): Product[] => {
-  console.log(action);
   switch (action.type) {
     case "FETCH_CART":
       return action.payload;

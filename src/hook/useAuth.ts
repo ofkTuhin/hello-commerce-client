@@ -1,26 +1,30 @@
 "use client";
+import { Axios } from "@/lib/axios";
 // hooks/useAuth.ts
-import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface User {
-  result: {
-    id: number;
-    username: string;
-    accessToken?: string;
-    refreshToken?: string;
-  };
+interface Response {
+  result: User;
 }
-
+interface User {
+  name: string;
+  email: string;
+  accessToken?: string;
+}
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState("");
   const router = useRouter();
+
+  // Function to read access token from local storage
+
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post<User>(
-        "https://hello-commerce-server.vercel.app/api/v1/user/login",
+      const response = await Axios.post<Response>(
+        "user/login",
         {
           email,
           password,
@@ -32,17 +36,8 @@ const useAuth = () => {
       );
 
       if (response.status === 200) {
-        setUser({ result: response.data.result! });
-        console.log(response.data.result);
-        localStorage.setItem(
-          "accessToken",
-          response?.data.result.accessToken! || "",
-        );
-        localStorage.setItem(
-          "refreshToken",
-          response?.data.result.refreshToken! || "",
-        );
-        // router.push("/");
+        localStorage.setItem("user", JSON.stringify(response.data.result!));
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
@@ -51,39 +46,17 @@ const useAuth = () => {
 
   const logout = async () => {
     try {
-      // await axios.post("/api/logout");
+      Cookies.remove("refreshToken");
+      localStorage.removeItem("user");
       setUser(null);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const refreshToken = async () => {
-    try {
-      const response = await axios.post<{ accessToken: string }>(
-        "/api/refresh",
-        { refreshToken: user?.result.refreshToken },
-      );
-      setUser((prevUser) => ({
-        ...prevUser!,
-        accessToken: response.data.accessToken,
-      }));
-    } catch (error) {
-      console.error(error);
-      setUser(null);
-    }
-  };
-
   useEffect(() => {
-    // Check if a refresh token is available and refresh the access token
-    if (user?.result.refreshToken) {
-      refreshToken();
-    } else {
-      setLoading(false);
-    }
+    setUser(JSON.parse(localStorage.getItem("user")!));
   }, []);
-  console.log(user);
-  return { user, loading, login, logout };
+  return { user, loading, login, setToken, token, logout };
 };
 
 export default useAuth;

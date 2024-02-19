@@ -1,15 +1,13 @@
-import { useCartContext } from "@/context/TodoContext";
+import { useAuthContext } from "@/context/AuthContext";
+import { useCartContext } from "@/context/cartContext";
 import { Product } from "@/types";
 import axios from "axios";
 import Image from "next/image";
-import { useMemo } from "react";
+import Link from "next/link";
 
 const Cart = () => {
   const { cart, dispatch } = useCartContext() || {};
-  const totalPay = useMemo(() => {
-    return cart?.reduce((prev, cur) => prev + cur.price * cur.quantity, 0);
-  }, [cart]);
-
+  const auth = useAuthContext();
   const updateCart = async (id: string, quantity: number) => {
     try {
       const update = await axios.patch(
@@ -18,7 +16,6 @@ const Cart = () => {
           quantity,
         },
       );
-      console.log(update);
       if (update.status === 200) {
         dispatch!({
           type: "UPDATE_QUANTITY",
@@ -32,6 +29,7 @@ const Cart = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="col-4 relative">
       <div className="  px-4 ">
@@ -88,9 +86,9 @@ const Cart = () => {
                 </div>
               </div>
             ))}
-            <button className="btn btn-primary w-full mt-4">
-              Checkout ${totalPay?.toFixed()}
-            </button>
+            <Link href="/checkout" className="btn btn-primary block">
+              Proceed to checkout
+            </Link>
           </div>
         ) : (
           <p>There is now product Available on cart</p>

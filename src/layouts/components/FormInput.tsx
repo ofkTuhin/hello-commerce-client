@@ -6,7 +6,7 @@ interface FormInputProps {
   type: string;
   id: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput: React.FC<FormInputProps> = ({

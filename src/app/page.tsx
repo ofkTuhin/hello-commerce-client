@@ -1,5 +1,5 @@
 "use client";
-import { useCartContext } from "@/context/TodoContext";
+import { useCartContext } from "@/context/cartContext";
 import useBackendApi from "@/hook/useFetcheData";
 import Cart from "@/layouts/ui/Cart";
 import { Product } from "@/types";
@@ -8,11 +8,7 @@ import Image from "next/image";
 
 const Home = () => {
   const { dispatch } = useCartContext() || {};
-  const {
-    data: products,
-    loading,
-    error,
-  } = useBackendApi("https://hello-commerce-server.vercel.app/api/v1/product");
+  const { data: products, loading, error } = useBackendApi();
 
   if (loading) {
     return <div>Loading...</div>;

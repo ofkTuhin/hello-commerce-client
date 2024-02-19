@@ -1,15 +1,13 @@
 {
-  "name": "nextplate",
+  "name": "hellocommerce",
   "version": "2.0.2",
-  "description": "Nextjs and Tailwindcss boilerplate",
-  "author": "zeon.studio",
+  "description": "Ecommerce",
   "license": "MIT",
   "packageManager": "yarn@1.22.19",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "preview": "next start",
-    "postbuild": "next-sitemap",
     "lint": "next lint",
     "format": "prettier -w ./src"
   },
@@ -17,19 +15,19 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.5.0",
+    "@stripe/stripe-js": "^3.0.3",
     "axios": "^1.6.3",
     "next": "14.0.4",
-    "next-sitemap": "^4.2.3",
-    "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-gtm-module": "^2.0.11",
     "react-icons": "^4.12.0",
     "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/js-cookie": "^3.0.6",
     "@types/marked": "^5.0.2",
     "@types/node": "20.10.5",
     "@types/react": "18.2.45",
