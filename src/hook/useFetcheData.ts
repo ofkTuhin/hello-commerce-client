@@ -29,9 +29,8 @@ function useBackendApi() {
         setData(response.data.result as Product[]);
         setError(null);
       } catch (error: any) {
-        console.log(error);
         if (error.response?.status === 403) {
-          router.push("/login");
+          logout();
         }
         setError(error.message);
       } finally {

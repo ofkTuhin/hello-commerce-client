@@ -49,6 +49,7 @@ const useAuth = () => {
       Cookies.remove("refreshToken");
       localStorage.removeItem("user");
       setUser(null);
+      router.push("/login");
     } catch (error) {
       console.error(error);
     }

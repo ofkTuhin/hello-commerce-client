@@ -1,6 +1,5 @@
 "use client";
 import theme from "@/config/theme.json";
-import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/cartContext";
 import Header from "@/layouts/ui/Header";
 import "@/styles/main.scss";
@@ -51,13 +50,11 @@ export default function RootLayout({
       </head>
 
       <body suppressHydrationWarning={true}>
-        <AuthProvider>
-          <CartProvider>
-            <Header />
+        <CartProvider>
+          <Header />
 
-            <main>{children}</main>
-          </CartProvider>
-        </AuthProvider>
+          <main>{children}</main>
+        </CartProvider>
       </body>
     </html>
   );

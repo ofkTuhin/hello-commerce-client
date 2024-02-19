@@ -1,4 +1,3 @@
-import { useAuthContext } from "@/context/AuthContext";
 import { useCartContext } from "@/context/cartContext";
 import { Product } from "@/types";
 import axios from "axios";
@@ -7,7 +6,7 @@ import Link from "next/link";
 
 const Cart = () => {
   const { cart, dispatch } = useCartContext() || {};
-  const auth = useAuthContext();
+
   const updateCart = async (id: string, quantity: number) => {
     try {
       const update = await axios.patch(

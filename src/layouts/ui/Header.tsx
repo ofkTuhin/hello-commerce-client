@@ -16,7 +16,6 @@ const Header = () => {
     window.scroll(0, 0);
   }, [pathname]);
 
-  // console.log(user);
   return (
     <header className={`header z-30 sticky top-0`}>
       <nav className="navbar container">

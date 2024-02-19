@@ -7,9 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useMemo, useState } from "react";
 
-const stripePromise = loadStripe(
-  "pk_test_51MbbiGK3RZZOQUDyUZ1d2gykge07mITkbVF0iRh562tKlCjuQqeUmkNtWtmVgLfAsU0jKWQzIZhJ5EbGbvwUNEkT009qHJz7lC",
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISH_KEY!);
 const Checkout = () => {
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState("");
