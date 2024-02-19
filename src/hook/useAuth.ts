@@ -1,7 +1,6 @@
 "use client";
 import { Axios } from "@/lib/axios";
 // hooks/useAuth.ts
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -30,7 +29,6 @@ const useAuth = () => {
           password,
         },
         {
-          withCredentials: true,
           headers: {},
         },
       );
@@ -46,7 +44,6 @@ const useAuth = () => {
 
   const logout = async () => {
     try {
-      Cookies.remove("refreshToken");
       localStorage.removeItem("user");
       setUser(null);
       router.push("/login");

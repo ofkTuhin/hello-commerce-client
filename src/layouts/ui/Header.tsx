@@ -17,7 +17,7 @@ const Header = () => {
   }, [pathname]);
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("user")!)) {
-      router.push("/");
+      router.push("/login");
     }
   }, []);
   return (
