@@ -3,19 +3,23 @@
 
 import useAuth from "@/hook/useAuth";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const Header = () => {
   // get current path
   const pathname = usePathname();
   const { user, logout } = useAuth();
-
+  const router = useRouter();
   // scroll to top on route change
   useEffect(() => {
     window.scroll(0, 0);
   }, [pathname]);
-
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("user")!)) {
+      router.push("/");
+    }
+  }, []);
   return (
     <header className={`header z-30 sticky top-0`}>
       <nav className="navbar container">
