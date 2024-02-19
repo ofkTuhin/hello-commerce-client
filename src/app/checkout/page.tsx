@@ -12,7 +12,6 @@ const stripePromise = loadStripe(
 );
 const Checkout = () => {
   const { user } = useAuth();
-  console.log(user);
   const [clientSecret, setClientSecret] = useState("");
   const { cart } = useCartContext() || {};
   const totalPay = useMemo(() => {

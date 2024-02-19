@@ -13,7 +13,6 @@ function useBackendApi() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { user, logout } = useAuth();
-  console.log(user);
   useEffect(() => {
     async function fetchData() {
       try {
